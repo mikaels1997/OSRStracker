@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 public class AddField implements ActionListener {
 
     JTextField playerTextField;
+
     public AddField(JPanel sidePanel){
 
         JPanel playerPanel = new JPanel();
@@ -28,13 +29,15 @@ public class AddField implements ActionListener {
         playerPanel.add(addButton);
 
         Main.sidePanel.add(playerPanel);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String results = URLparser.reqPlayerStats(playerTextField.getText());
         System.out.println(results);
+        new PlayerPanel(playerTextField.getText());
+        Main.sidePanel.revalidate();
+        Main.sidePanel.repaint();
     }
     
 }
