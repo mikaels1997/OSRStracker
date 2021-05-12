@@ -47,5 +47,7 @@ public class Main {
 
         mainFrame.add(sidePanel, BorderLayout.WEST);
         mainFrame.add(skillPanel, BorderLayout.CENTER);
+
+        //Test
     }
 }
