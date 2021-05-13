@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import java.awt.Insets;
-
 public class PlayerPanel implements ActionListener {
 
     public String playerName;
@@ -65,10 +63,23 @@ public class PlayerPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if(e.getActionCommand().equals("-")){
+            // Remove player (-) button is pressed
+
+            AddField.playerNames.remove(playerName);
+            TxtFileHandler.removePlayer(playerName);
+
             Main.sidePanel.remove(playerPanel);
             Main.sidePanel.revalidate();
             Main.sidePanel.repaint();
+        }
+        else {
+            TxtFileHandler.readPlayerStats(playerName, 1);
+
+            // The name of the player is pressed
+
+            // ToDo: the skill panel opens
         }
     }
 }
