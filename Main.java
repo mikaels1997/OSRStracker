@@ -28,15 +28,7 @@ public class Main {
         new PlayerPanel("lol");
         new PlayerPanel("asd");
         new PlayerPanel("hehe");
-        new PlayerPanel("hehe2");
-        new PlayerPanel("hehe3");
-        new PlayerPanel("hehe4");
-        new PlayerPanel("hehe5");
-        new PlayerPanel("hehe6");
-        new PlayerPanel("hehe7");
-        new PlayerPanel("hehe8");
-        new PlayerPanel("hehe9");
-        new PlayerPanel("hehe10");
+        
 
         mainFrame.setVisible(true);
     }
@@ -56,9 +48,6 @@ public class Main {
         skillPanel.setBackground(Color.yellow);
         skillPanel.setPreferredSize(new Dimension(100,100));
         skillPanel.setLayout(new BorderLayout());
-        //JTextArea textarea = new JTextArea(100,100);
-        //JScrollPane scroll = new JScrollPane(textarea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //skillPanel.add(scroll);
         skillPanel.setVisible(true);
 
         mainFrame.add(scroll, BorderLayout.WEST);
