@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 public class SkillPanelButtons implements ActionListener {
 
+    /*Creates a panel with four buttons*/
+
     public SkillPanelButtons(){
 
         JPanel buttonPanel = new JPanel();
@@ -68,7 +70,6 @@ public class SkillPanelButtons implements ActionListener {
         if(e.getActionCommand().equals("Update Log")){
         }
         if(e.getActionCommand().equals("Progress")){
-        }
-        
+        }      
     }
 }

@@ -24,10 +24,10 @@ public class Main {
         mainFrame.getContentPane().setBackground(new Color(105,105,105));;
         initPanels();
 
-        new PlayerPanel("mmmmmmmmmmmm");
-        new PlayerPanel("lol");
-        new PlayerPanel("asd");
-        new PlayerPanel("hehe");
+        //new PlayerPanel("mmmmmmmmmmmm");
+        //new PlayerPanel("lol");
+        //new PlayerPanel("asd");
+        //new PlayerPanel("hehe");
         
 
         mainFrame.setVisible(true);
@@ -37,7 +37,7 @@ public class Main {
 
         sidePanel = new JPanel();
         sidePanel.setBackground(Color.red);
-        sidePanel.setLayout(new GridLayout(0, 1));
+        sidePanel.setLayout(new GridLayout(10,1));
         
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
