@@ -6,13 +6,14 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 public class PlayerPanel implements ActionListener {
 
     public String playerName;
     private PlayerPanel current;
     private JButton removeButton;
-    private JButton playerButton;
+    private JToggleButton playerButton;
     private JPanel playerPanel;
 
     public PlayerPanel(String name){
@@ -23,13 +24,14 @@ public class PlayerPanel implements ActionListener {
 
         playerPanel = new JPanel();
 
-        playerButton = new JButton();
+        playerButton = new JToggleButton();
         //playerButton.setBounds(100, 100, 250, 100);
         playerButton.setPreferredSize(new Dimension(180,50));
         playerButton.addActionListener(this);
         playerButton.setText(name);
         playerButton.setFont(new Font("Dialog", Font.PLAIN, 12));
         playerButton.setFocusable(false);
+        
 
         //Adjusting the appearance of the button
         // playerButton.setFocusPainted(false);
@@ -53,6 +55,8 @@ public class PlayerPanel implements ActionListener {
         // removeButton.setBorderPainted(false);
         // removeButton.setOpaque(false);
         // removeButton.setVisible(true);
+
+
 
         playerPanel.add(playerButton, BorderLayout.EAST);
         playerPanel.add(removeButton, BorderLayout.EAST);

@@ -37,7 +37,8 @@ public class Main {
 
         sidePanel = new JPanel();
         sidePanel.setBackground(Color.red);
-        sidePanel.setLayout(new GridLayout(10,1));
+        int height = GridYaxis();
+        sidePanel.setLayout(new GridLayout(height,1));
         
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
@@ -53,5 +54,20 @@ public class Main {
         mainFrame.add(scroll, BorderLayout.WEST);
         //mainFrame.add(sidePanel, BorderLayout.WEST);
         mainFrame.add(skillPanel, BorderLayout.CENTER);
+    }
+
+    public static int GridYaxis() {
+
+        int panelHeight = 10;
+        if (AddField.playerNames == null) {
+            return panelHeight;
+
+        } else if (panelHeight >= AddField.playerNames.size()) {
+            return panelHeight;
+
+        } else {
+            int listLength = AddField.playerNames.size();
+            return listLength;
+        }
     }
 }
