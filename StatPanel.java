@@ -48,11 +48,12 @@ public class StatPanel {
             displayTotal(playerName, updateIndex);
         }
         if(state.equals("progress")){
-            displayTotal(playerName, updateIndex);
+            displayProgress(playerName, updateIndex);
         }
         if(state.equals("log")){
             displayTotal(playerName, updateIndex);
         }
+
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
@@ -88,8 +89,8 @@ public class StatPanel {
         }
     }
 
-    private void showProgress(String name, int updateIndex){
-
+    private void displayProgress(String name, int updateIndex){
+        String[] diffs = TxtFileHandler.calcProgress(name, updateIndex);
     }
     private void showLog(String name){
 

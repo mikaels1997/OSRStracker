@@ -107,7 +107,27 @@ public class TxtFileHandler {
         return stats;
     }
 
-    public String[] calcProgress(){
+    public static String[] calcProgress(String name, int updateIndex){
+
+        String[] laterUpdate = readPlayerStats(name, updateIndex);
+        String[] prevUpdate = readPlayerStats(name, updateIndex+1);
+        
+
+        for(int i=1; i < laterUpdate.length-1; i++){
+            
+            int currentRank = Integer.parseInt(laterUpdate[i].split(",")[0]);
+            int prevRank = Integer.parseInt(prevUpdate[i].split(",")[0]);
+            int rankDiff = currentRank - prevRank;
+
+            int currentLvl = Integer.parseInt(laterUpdate[i].split(",")[1]);
+            int prevLvl = Integer.parseInt(prevUpdate[i].split(",")[1]);
+            int lvlDiff = currentLvl - prevLvl;
+
+            int currentXp = Integer.parseInt(laterUpdate[i].split(",")[2].strip());
+            int prevXp = Integer.parseInt(prevUpdate[i].split(",")[2].strip());
+            int XpDiff = currentXp - prevXp;
+        }
+
         return new String[2];
     }
     
