@@ -4,14 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.event.MouseInputListener;
 
-public class StatPanel {
+public class StatPanel implements MouseInputListener {
 
     private String[] skills; // Skill names in certain order
     public static JPanel statPanel; // Panel containing either skill or update history
@@ -83,6 +85,8 @@ public class StatPanel {
             label.setFont(new Font("Dialog", Font.PLAIN, 20));
             label.setIcon(image);
             label.setBorder(border);
+            label.setName(skill);
+            label.addMouseListener(this);
             statPanel.add(label);
 
             statIndex += 1;
@@ -94,5 +98,53 @@ public class StatPanel {
     }
     private void showLog(String name){
 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        JLabel hoveredlabel =(JLabel)e.getSource();
+        String hoveredskill = hoveredlabel.getName(); 
+        System.out.println("entered " + hoveredskill);
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        JLabel hoveredlabel =(JLabel)e.getSource();
+        String hoveredskill = hoveredlabel.getName(); 
+        System.out.println("exited " + hoveredskill);
+        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
