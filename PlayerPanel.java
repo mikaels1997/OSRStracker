@@ -75,10 +75,11 @@ public class PlayerPanel implements ActionListener {
             Main.sidePanel.repaint();
         }
         else {
-            TxtFileHandler.readPlayerStats(playerName, 1);
-
             // The name of the player is pressed
 
+            TxtFileHandler.readPlayerStats(playerName, 1);
+            new SkillPanelButtons();
+            new SkillPanel(playerName, "total", 1);
             // ToDo: the skill panel opens
         }
     }

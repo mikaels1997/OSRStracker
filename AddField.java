@@ -40,7 +40,7 @@ public class AddField implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Add player button is pressed
 
-        String name = playerTextField.getText();
+        String name = playerTextField.getText().toLowerCase();
         String results = URLparser.reqPlayerStats(name);
 
         if (results == null){ // player stats not found

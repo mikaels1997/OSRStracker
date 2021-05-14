@@ -42,6 +42,7 @@ public class Main {
         skillPanel = new JPanel();
         skillPanel.setBackground(Color.yellow);
         skillPanel.setPreferredSize(new Dimension(100,100));
+        skillPanel.setLayout(new BorderLayout());
         skillPanel.setVisible(true);
 
         mainFrame.add(sidePanel, BorderLayout.WEST);
