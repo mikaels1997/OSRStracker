@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class SkillPanel {
+public class StatPanel {
 
     private String[] skills; // Skill names in certain order
     public static JPanel statPanel; // Panel containing either skill or update history
@@ -21,14 +21,14 @@ public class SkillPanel {
     public String state; // Current display state ("total", "progress", "update log")
     public int updateIndex; // Current update index 1 being the newest
 
-    public static SkillPanel current;
+    public static StatPanel current;
 
-    public SkillPanel(String n, String s, int u){
+    public StatPanel(String n, String s, int u){
 
         /*Opens up a panel showing the stats of the player or update log
         name = the name of the player
         state = Either "total", "progress" state or "log" state
-        updateIndex = which update date is the user looking
+        updateIndex = which update is the user looking
         The functions of this class is always called only when creating an instance*/
 
         current = this;

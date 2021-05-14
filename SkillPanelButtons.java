@@ -65,10 +65,10 @@ public class SkillPanelButtons implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         /*One of the four buttons are pressed */
 
-        String name = SkillPanel.current.playerName;
+        String name = StatPanel.current.playerName;
 
         // Removes the current stats panel from the skillpanel
-        Main.skillPanel.remove(SkillPanel.statPanel);
+        Main.skillPanel.remove(StatPanel.statPanel);
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
 
@@ -78,11 +78,11 @@ public class SkillPanelButtons implements ActionListener {
 
             String results = URLparser.reqPlayerStats(name);
             TxtFileHandler.updateCurrent(name, results.split(" "));
-            new SkillPanel(name, "total", 1);
+            new StatPanel(name, "total", 1);
         }
         if(e.getActionCommand().equals("Total")){
             // Displays the latest stats of the player in "total" mode
-            new SkillPanel(name, "total", 1);
+            new StatPanel(name, "total", 1);
         }
         if(e.getActionCommand().equals("Progress")){
             // Displays the stats in "progress" mode

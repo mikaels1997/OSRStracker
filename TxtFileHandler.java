@@ -23,7 +23,7 @@ public class TxtFileHandler {
     Creates new .txt file if it doesnt exist
     The file name is always the name of the player*/
 
-        // Removes the file to keep newest update on top (there's no easier way)
+        // First removes the file to keep newest update on top (there's no easier way)
         String[] previousUpdates = readPlayerStats(name, -1);
         File txtFile = new File(name +".txt");
         txtFile.delete();
