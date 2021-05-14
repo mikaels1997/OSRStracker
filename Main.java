@@ -58,7 +58,7 @@ public class Main {
 
     public static int GridYaxis() {
 
-        int panelHeight = 10;
+        int panelHeight = 9;
         if (AddField.playerNames == null) {
             return panelHeight;
 
@@ -66,8 +66,8 @@ public class Main {
             return panelHeight;
 
         } else {
-            int listLength = AddField.playerNames.size();
-            return listLength;
+            //int listLength = AddField.playerNames.size();
+            return 0;
         }
     }
 }
