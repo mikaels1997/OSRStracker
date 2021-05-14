@@ -14,6 +14,7 @@ public class PlayerPanel implements ActionListener {
     private JButton removeButton;
     private JButton playerButton;
     private JPanel playerPanel;
+    private SkillPanel skillPanel;
 
     public PlayerPanel(String name){
 
@@ -76,11 +77,9 @@ public class PlayerPanel implements ActionListener {
         }
         else {
             // The name of the player is pressed
-
-            TxtFileHandler.readPlayerStats(playerName, 1);
+            Main.skillPanel.removeAll();
             new SkillPanelButtons();
-            new SkillPanel(playerName, "total", 1);
-            // ToDo: the skill panel opens
+            skillPanel = new SkillPanel(playerName, "total", 1);
         }
     }
 }

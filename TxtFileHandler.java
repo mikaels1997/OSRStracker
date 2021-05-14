@@ -2,13 +2,10 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-
-import javax.sound.midi.SysexMessage;
 
 import java.sql.Timestamp;
 
@@ -79,7 +76,7 @@ public class TxtFileHandler {
                     // Every timestamp starts with character "<"
 
                     currentUpdateIndex += 1;
-                    System.out.println(currentUpdateIndex);
+                    //System.out.println(currentUpdateIndex);
                 }
                 if(currentUpdateIndex == updateIndex){
 
