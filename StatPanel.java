@@ -68,6 +68,7 @@ public class StatPanel implements MouseInputListener {
 
         statPanel.setLayout(new GridLayout(10,3));
         Border border = BorderFactory.createLineBorder(Color.black, 3);
+
         String[] stats = TxtFileHandler.readPlayerStats(playerName, 1);
         int statIndex = 1;
 
@@ -94,7 +95,27 @@ public class StatPanel implements MouseInputListener {
     }
 
     private void displayProgress(String name, int updateIndex){
+
+        statPanel.setLayout(new GridLayout(24,1));
+        int statIndex = 0;
+        // In diffs skill statistics are separated by space
         String[] diffs = TxtFileHandler.calcProgress(name, updateIndex);
+        for(String skill:skills){ 
+
+            ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
+            .getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+            JLabel label = new JLabel();
+            label.setPreferredSize(new Dimension(70,70));
+
+            label.setText(diffs[statIndex].split(" ")[0]);
+            label.setFont(new Font("Dialog", Font.PLAIN, 20));
+            label.setIcon(image);
+            statPanel.add(label);
+
+            statIndex += 1;
+        }
+        
+        
     }
     private void showLog(String name){
 
@@ -123,7 +144,7 @@ public class StatPanel implements MouseInputListener {
         // TODO Auto-generated method stub
         JLabel hoveredlabel =(JLabel)e.getSource();
         String hoveredskill = hoveredlabel.getName(); 
-        System.out.println("entered " + hoveredskill);
+        //System.out.println("entered " + hoveredskill);
         
     }
 
@@ -132,7 +153,7 @@ public class StatPanel implements MouseInputListener {
         // TODO Auto-generated method stub
         JLabel hoveredlabel =(JLabel)e.getSource();
         String hoveredskill = hoveredlabel.getName(); 
-        System.out.println("exited " + hoveredskill);
+        //System.out.println("exited " + hoveredskill);
         
     }
 

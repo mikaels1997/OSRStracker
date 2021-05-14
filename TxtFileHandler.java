@@ -111,10 +111,10 @@ public class TxtFileHandler {
 
         String[] laterUpdate = readPlayerStats(name, updateIndex);
         String[] prevUpdate = readPlayerStats(name, updateIndex+1);
-        
+        String[] diffs = new String[laterUpdate.length-2];
 
         for(int i=1; i < laterUpdate.length-1; i++){
-            
+
             int currentRank = Integer.parseInt(laterUpdate[i].split(",")[0]);
             int prevRank = Integer.parseInt(prevUpdate[i].split(",")[0]);
             int rankDiff = currentRank - prevRank;
@@ -125,10 +125,14 @@ public class TxtFileHandler {
 
             int currentXp = Integer.parseInt(laterUpdate[i].split(",")[2].strip());
             int prevXp = Integer.parseInt(prevUpdate[i].split(",")[2].strip());
-            int XpDiff = currentXp - prevXp;
+            int xpDiff = currentXp - prevXp;
+
+            String diffStr = Integer.toString(rankDiff)+" "+Integer.toString(lvlDiff)+" "+
+            Integer.toString(xpDiff);
+            diffs[i-1] = diffStr;
         }
 
-        return new String[2];
+        return diffs;
     }
     
     public static Timestamp timeStamp(){
