@@ -73,7 +73,6 @@ public class AddField implements ActionListener {
                 playerNames.add(name);
                 TxtFileHandler.updateCurrent(name, results.split(" "));
 
-                System.out.println(results);
                 new PlayerPanel(playerTextField.getText());
                 Main.sidePanel.revalidate();
                 Main.sidePanel.repaint();

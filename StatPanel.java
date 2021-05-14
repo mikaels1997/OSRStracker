@@ -11,54 +11,65 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class SkillPanel {
+public class StatPanel {
 
-    JPanel statPanel;
-    JPanel buttonPanel;
-    String playerName;
-    String state;
-    String[] skills;
-    int updateIndex;
+    private String[] skills; // Skill names in certain order
+    public static JPanel statPanel; // Panel containing either skill or update history
+    public JPanel buttonPanel; // Panel containing the 4 buttons
 
-    public SkillPanel(String n, String s, int u){
+    public String playerName; // Current name of the player on display
+    public String state; // Current display state ("total", "progress", "update log")
+    public int updateIndex; // Current update index 1 being the newest
+
+    public static StatPanel current;
+
+    public StatPanel(String n, String s, int u){
 
         /*Opens up a panel showing the stats of the player or update log
         name = the name of the player
         state = Either "total", "progress" state or "log" state
-        updateIndex = which update date is the user looking*/
+        updateIndex = which update is the user looking
+        The functions of this class is always called only when creating an instance*/
+
+        current = this;
 
         this.playerName = n;
         this.state = s;
         this.updateIndex = u;
-        this.skills = new String[] {"attack", "attack", "defence","strength",
+        this.skills = new String[] {"total", "attack", "defence","strength",
         "hitpoints", "archery", "prayer", "magic", "cooking", "woodcutting", "fletching",
         "fishing", "firemaking", "crafting", "smithing", "mining", "herblore", "agility",
         "thieving", "slayer", "farming", "runecrafting", "hunter", "construction"};
 
         statPanel = new JPanel();
         statPanel.setBackground(Color.green);
-        //statPanel.setPreferredSize(new Dimension(50,50));
 
         if(state.equals("total")){
-            showTotal(playerName, updateIndex);
+            displayTotal(playerName, updateIndex);
         }
         if(state.equals("progress")){
-            showTotal(playerName, updateIndex);
+            displayTotal(playerName, updateIndex);
         }
         if(state.equals("log")){
-            showTotal(playerName, updateIndex);
+            displayTotal(playerName, updateIndex);
         }
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
     }
 
-    public void showTotal(String name, int updateIndex){
+    private void displayTotal(String name, int updateIndex){
+
+        /*Reads the skills of latest update from text file
+        Displays the skill icons and corresponding leves in a grid*/
+
         statPanel.setLayout(new GridLayout(10,3));
         Border border = BorderFactory.createLineBorder(Color.black, 3);
         String[] stats = TxtFileHandler.readPlayerStats(playerName, 1);
         int statIndex = 1;
-        for(String skill:skills){
+
+        // Loops through skills in the order determined in the "skills" -string array
+        for(String skill:skills){ 
 
             String stat = stats[statIndex].split(",")[1];
 
@@ -72,16 +83,15 @@ public class SkillPanel {
             label.setIcon(image);
             label.setBorder(border);
             statPanel.add(label);
-            
+
             statIndex += 1;
         }
-        System.out.println("TASSA"+stats[1]);
     }
 
-    public void showProgress(String name, int updateIndex){
+    private void showProgress(String name, int updateIndex){
 
     }
-    public void showLog(String name){
+    private void showLog(String name){
 
     }
 }

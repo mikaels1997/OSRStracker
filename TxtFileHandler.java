@@ -2,13 +2,10 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-
-import javax.sound.midi.SysexMessage;
 
 import java.sql.Timestamp;
 
@@ -26,9 +23,13 @@ public class TxtFileHandler {
     Creates new .txt file if it doesnt exist
     The file name is always the name of the player*/
 
+        // First removes the file to keep newest update on top (there's no easier way)
+        String[] previousUpdates = readPlayerStats(name, -1);
+        File txtFile = new File(name +".txt");
+        txtFile.delete();
+
         try (BufferedWriter writer = new BufferedWriter(
             new FileWriter(name+".txt", true));){
-
                 // Write timestamp on the first row
                 writer.write("<"+timeStamp().toString()+ ">\n");
 
@@ -38,8 +39,16 @@ public class TxtFileHandler {
                         writer.write(txt[i]+"\n");
                     }
             }
-
             writer.write("\n");
+
+            // Writes the previous updates
+            if(previousUpdates != null){
+                for(String line:previousUpdates){
+                writer.write(line+"\n");
+                }
+            }
+            writer.write("\n");
+            
             System.out.println("Stats stored successfully!");
         } catch (IOException ioe){
             System.out.println("Problem reading the file");
@@ -79,11 +88,12 @@ public class TxtFileHandler {
                     // Every timestamp starts with character "<"
 
                     currentUpdateIndex += 1;
-                    System.out.println(currentUpdateIndex);
+                    //System.out.println(currentUpdateIndex);
                 }
-                if(currentUpdateIndex == updateIndex){
-
+                if(currentUpdateIndex == updateIndex || updateIndex == -1){
                     // Appends the text only from certain timestamp based on update index
+                    // If the update index is -1 all the updates are appended
+
                     sb.append(line);
                     sb.append(System.lineSeparator());
                 }
