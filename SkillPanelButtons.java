@@ -103,7 +103,7 @@ public class SkillPanelButtons implements ActionListener {
         }  
         if(e.getActionCommand().equals("Update log")){
             // Displays the update history and their timestamps
-            new StatPanel(name, "log", -1);
+            new StatPanel(name, "log", StatPanel.current.updateIndex);
         }   
     }
 }

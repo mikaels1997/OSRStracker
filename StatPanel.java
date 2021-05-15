@@ -60,7 +60,7 @@ public class StatPanel implements MouseInputListener {
             displayProgress(playerName, updateIndex);
         }
         if(state.equals("log")){
-            showLog(playerName);
+            showLog(playerName, updateIndex);
         }
 
         // Player name and timestamp
@@ -157,7 +157,7 @@ public class StatPanel implements MouseInputListener {
             statIndex += 1;
         }   
     }
-    private void showLog(String name){
+    private void showLog(String name, int updateIndex){
         statPanel = new JPanel(new GridLayout(0,1));
         String dates = TxtFileHandler.getUpdateDates(name);
         String[] dateArray = dates.split("\n");

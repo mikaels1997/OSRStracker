@@ -65,8 +65,10 @@ public class Main {
     public static void initTrackedPlayers(){
         String[] players = TxtFileHandler.readPlayers();
         for(String player:players){
-            AddField.playerNames.add(player.strip().toLowerCase());
-            new PlayerPanel(player.strip());
+            if(!player.isEmpty()){
+                AddField.playerNames.add(player.strip().toLowerCase());
+                new PlayerPanel(player.strip());
+            }
         }
         Main.sidePanel.revalidate();
         Main.sidePanel.repaint();
