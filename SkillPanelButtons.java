@@ -6,13 +6,17 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 
 
 public class SkillPanelButtons implements ActionListener {
 
+
+    private static ButtonGroup skillbuttonGroup = new ButtonGroup();
     /*Creates a panel with four buttons*/
 
     public SkillPanelButtons(){
@@ -30,31 +34,38 @@ public class SkillPanelButtons implements ActionListener {
         refreshButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         refreshButton.setFocusable(false);
 
-        JButton totalButton = new JButton();
+        JToggleButton totalButton = new JToggleButton();
         totalButton.setPreferredSize(new Dimension(50,50));
         totalButton.addActionListener(this);
         totalButton.setText("Total");
         totalButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         totalButton.setFocusable(false);
 
-        JButton progressButton = new JButton();
+        JToggleButton progressButton = new JToggleButton();
         progressButton.setPreferredSize(new Dimension(50,50));
         progressButton.addActionListener(this);
         progressButton.setText("Update log");
         progressButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         progressButton.setFocusable(false);
 
-        JButton logButton = new JButton();
+        JToggleButton logButton = new JToggleButton();
         logButton.setPreferredSize(new Dimension(50,50));
         logButton.addActionListener(this);
         logButton.setText("Progress");
         logButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         logButton.setFocusable(false);
 
+        //skillbuttonGroup.add(refreshButton);
+        skillbuttonGroup.add(totalButton);
+        skillbuttonGroup.add(progressButton);
+        skillbuttonGroup.add(logButton);
+
         buttonPanel.add(refreshButton);
         buttonPanel.add(totalButton);
         buttonPanel.add(progressButton);
         buttonPanel.add(logButton);
+
+        totalButton.setSelected(true);
 
         Main.skillPanel.add(buttonPanel, BorderLayout.PAGE_END);
         Main.sidePanel.revalidate();
@@ -69,6 +80,7 @@ public class SkillPanelButtons implements ActionListener {
 
         // Removes the current stats panel from the skillpanel
         Main.skillPanel.remove(StatPanel.statPanel);
+        Main.skillPanel.remove(StatPanel.infoPanel);
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
 
@@ -78,6 +90,7 @@ public class SkillPanelButtons implements ActionListener {
 
             String results = URLparser.reqPlayerStats(name);
             TxtFileHandler.updateCurrent(name, results.split(" "));
+            skillbuttonGroup.clearSelection();
             new StatPanel(name, "total", 1);
         }
         if(e.getActionCommand().equals("Total")){
@@ -86,6 +99,7 @@ public class SkillPanelButtons implements ActionListener {
         }
         if(e.getActionCommand().equals("Progress")){
             // Displays the stats in "progress" mode
+            new StatPanel(name, "progress", 1);
         }  
         if(e.getActionCommand().equals("Update Log")){
             // Displays the update history and their timestamps

@@ -107,10 +107,63 @@ public class TxtFileHandler {
         return stats;
     }
 
-    public String[] calcProgress(){
-        return new String[2];
+    public static String[] calcProgress(String name, int updateIndex){
+
+        String[] laterUpdate = readPlayerStats(name, updateIndex);
+        String[] prevUpdate = readPlayerStats(name, updateIndex+1);
+        String[] diffs = new String[laterUpdate.length-2];
+
+        for(int i=1; i < laterUpdate.length-1; i++){
+
+            int currentRank = Integer.parseInt(laterUpdate[i].split(",")[0]);
+            int prevRank = Integer.parseInt(prevUpdate[i].split(",")[0]);
+            int rankDiff = currentRank - prevRank;
+
+            int currentLvl = Integer.parseInt(laterUpdate[i].split(",")[1]);
+            int prevLvl = Integer.parseInt(prevUpdate[i].split(",")[1]);
+            int lvlDiff = currentLvl - prevLvl;
+
+            int currentXp = Integer.parseInt(laterUpdate[i].split(",")[2].strip());
+            int prevXp = Integer.parseInt(prevUpdate[i].split(",")[2].strip());
+            int xpDiff = currentXp - prevXp;
+
+            String diffStr = Integer.toString(rankDiff)+" "+Integer.toString(lvlDiff)+" "+
+            Integer.toString(xpDiff);
+            diffs[i-1] = diffStr;
+        }
+
+        return diffs;
     }
     
+    public static String getTimestamp(String name, int updateIndex){
+
+        String timeStamp = "0";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            
+            // Counts which update is handled while reading the text file
+            int currentUpdateIndex = 1;
+
+            while (line != null) {
+                if(line.startsWith("<") && currentUpdateIndex == updateIndex){
+                    currentUpdateIndex += 1;
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    return sb.toString();
+                }
+            }
+
+            line = br.readLine();
+        } catch (IOException ioe){
+            System.out.println("Failed to read the file: <"+name+">");
+        }
+
+        // Timestamp fetching is failed if it returns this
+        return timeStamp;
+    }
+
     public static Timestamp timeStamp(){
         Date date= new Date();
         long time = date.getTime();
