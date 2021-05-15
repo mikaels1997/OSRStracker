@@ -147,21 +147,41 @@ public class TxtFileHandler {
             int currentUpdateIndex = 1;
 
             while (line != null) {
-                if(line.startsWith("<") && currentUpdateIndex == updateIndex){
+                if(line.startsWith("<")){
+                    if(currentUpdateIndex == updateIndex){
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                        return sb.toString();
+                    }
                     currentUpdateIndex += 1;
-                    sb.append(line);
-                    sb.append(System.lineSeparator());
-                    return sb.toString();
                 }
+                line = br.readLine();
             }
-
-            line = br.readLine();
         } catch (IOException ioe){
             System.out.println("Failed to read the file: <"+name+">");
         }
 
         // Timestamp fetching is failed if it returns this
         return timeStamp;
+    }
+
+    public static String getUpdateDates(String name){
+
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+            String line = br.readLine();
+
+            while (line != null) {
+                if(line.startsWith("<")){
+                    sb.append(line.substring(1,line.length()-1));
+                    sb.append(System.lineSeparator());
+                }
+                line = br.readLine();
+            }
+        } catch (IOException ioe){
+            System.out.println("Failed to read the file: <"+name+">");
+        }
+        return sb.toString();
     }
 
     public static Timestamp timeStamp(){

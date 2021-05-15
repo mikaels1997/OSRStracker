@@ -9,6 +9,7 @@ import java.security.Timestamp;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -57,7 +58,7 @@ public class StatPanel implements MouseInputListener {
             displayProgress(playerName, updateIndex);
         }
         if(state.equals("log")){
-            displayTotal(playerName, updateIndex);
+            showLog(playerName);
         }
 
         // Player name and timestamp
@@ -67,11 +68,18 @@ public class StatPanel implements MouseInputListener {
         infoPanel.setPreferredSize(new Dimension(60,60));
         JLabel nameLabel = new JLabel();
         JLabel timeLabel = new JLabel();
-        nameLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
-        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
-        System.out.println(timeStamp);
+        nameLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
+
         nameLabel.setText(playerName);
-        timeLabel.setText(timeStamp);
+
+        if(this.state.equals("progress")){ // Shows two timestamps
+            String prevTimeStamp = TxtFileHandler.getTimestamp(playerName, updateIndex+1);
+            timeLabel.setText(timeStamp+" - "+prevTimeStamp);
+        }
+        else{
+            timeLabel.setText(timeStamp);
+        }
 
         infoPanel.add(nameLabel, BorderLayout.WEST);
         infoPanel.add(timeLabel, BorderLayout.EAST);
@@ -144,7 +152,10 @@ public class StatPanel implements MouseInputListener {
         }   
     }
     private void showLog(String name){
-
+        statPanel = new JPanel(new GridLayout(0,1));
+        String dates = TxtFileHandler.getUpdateDates(name);
+        String[] dateArray = dates.split("\n");
+        new UpdateLog(playerName, dateArray);
     }
 
     @Override

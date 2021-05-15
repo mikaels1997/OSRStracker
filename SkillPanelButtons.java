@@ -101,8 +101,9 @@ public class SkillPanelButtons implements ActionListener {
             // Displays the stats in "progress" mode
             new StatPanel(name, "progress", 1);
         }  
-        if(e.getActionCommand().equals("Update Log")){
+        if(e.getActionCommand().equals("Update log")){
             // Displays the update history and their timestamps
+            new StatPanel(name, "log", -1);
         }   
     }
 }
