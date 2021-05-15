@@ -11,24 +11,23 @@ import javax.swing.JToggleButton;
 
 public class PlayerPanel implements ActionListener {
 
+    /*An instance of this class if created whenever new player is added to follow list.
+    The purpose of this class is to create player panel, which contains
+    remove button and the button to check the stats of the player. */
+
     public String playerName;
-    private PlayerPanel current;
     private JButton removeButton;
     private JToggleButton playerButton;
     private JPanel playerPanel;
-    private StatPanel skillPanel;
     private static ButtonGroup playerButtonGroup = new ButtonGroup();
 
     public PlayerPanel(String name){
-
-        current = this;
 
         this.playerName = name;
 
         playerPanel = new JPanel();
 
         playerButton = new JToggleButton();
-        //playerButton.setBounds(100, 100, 250, 100);
         playerButton.setPreferredSize(new Dimension(180,50));
         playerButton.addActionListener(this);
         playerButton.setText(name);
@@ -60,11 +59,8 @@ public class PlayerPanel implements ActionListener {
         // removeButton.setOpaque(false);
         // removeButton.setVisible(true);
 
-
-
         playerPanel.add(playerButton, BorderLayout.EAST);
         playerPanel.add(removeButton, BorderLayout.EAST);
-
 
         Main.sidePanel.add(playerPanel);
     }
@@ -73,7 +69,9 @@ public class PlayerPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getActionCommand().equals("-")){
-            // Remove player (-) button is pressed
+            
+            // Remove player (-) button is pressed -> the player
+            // and every update of that player is deleted
 
             AddField.playerNames.remove(playerName.toLowerCase());
             TxtFileHandler.removePlayer(playerName);
@@ -83,10 +81,10 @@ public class PlayerPanel implements ActionListener {
             Main.sidePanel.repaint();
         }
         else {
-            // The name of the player is pressed
+            // The name of the player is pressed -> stats of that player is displayed
             Main.skillPanel.removeAll();
             new SkillPanelButtons();
-            skillPanel = new StatPanel(playerName, "total", 1);
+            new StatPanel(playerName, "total", 1);
         }
     }
 }

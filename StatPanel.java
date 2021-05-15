@@ -5,22 +5,18 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.security.Timestamp;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
 public class StatPanel implements MouseInputListener {
 
     private String[] skills; // Skill names in certain order
-    public static JPanel statPanel; // Panel containing either skill or update history
+    public static JPanel statPanel; // Panel containing either skills or update history
     public static JPanel infoPanel; // Panel containing the player name and timestamp
     public JPanel buttonPanel; // Panel containing the 4 buttons
 
@@ -54,13 +50,13 @@ public class StatPanel implements MouseInputListener {
         statPanel.setBackground(Color.green);
 
         if(state.equals("total")){
-            displayTotal(playerName, updateIndex);
+            displayTotal(updateIndex);
         }
         if(state.equals("progress")){
-            displayProgress(playerName, updateIndex);
+            displayProgress(updateIndex);
         }
         if(state.equals("log")){
-            showLog(playerName, updateIndex);
+            showLog();
         }
 
         // Player name and timestamp
@@ -97,7 +93,7 @@ public class StatPanel implements MouseInputListener {
         Main.skillPanel.repaint();
     }
 
-    private void displayTotal(String name, int updateIndex){
+    private void displayTotal(int updateIndex){
 
         /*Reads the skills of latest update from text file
         Displays the skill icons and corresponding leves in a grid*/
@@ -111,8 +107,10 @@ public class StatPanel implements MouseInputListener {
         // Loops through skills in the order determined in the "skills" -string array
         for(String skill:skills){ 
 
+            // Only the level is initially shown in "total" state
             String stat = stats[statIndex].split(",")[1];
 
+            // Fetches the image for every skill
             ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
             .getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             JLabel label = new JLabel();
@@ -130,14 +128,20 @@ public class StatPanel implements MouseInputListener {
         }
     }
 
-    private void displayProgress(String name, int updateIndex){
+    private void displayProgress(int updateIndex){
+
+        /*Displays the skill in "progress" mode.
+        The progression is determined by comparing the rank, level and
+        experience of the player from current selected update to its
+        previous update. If there's no previous updates, a text label is shown.*/
 
         statPanel.setLayout(new GridLayout(24,1));
         int statIndex = 0;
 
         // In diffs -string array skill statistics are separated by space
-        String[] diffs = TxtFileHandler.calcProgress(name, updateIndex);
+        String[] diffs = TxtFileHandler.calcProgress(playerName, updateIndex);
 
+        // Loops through skills in the order determined in the "skills" -string array
         for(String skill:skills){ 
 
             ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
@@ -157,9 +161,17 @@ public class StatPanel implements MouseInputListener {
             statIndex += 1;
         }   
     }
-    private void showLog(String name, int updateIndex){
+
+    private void showLog(){
+
+        /*Displays the update log.
+        Update log consists of all the timestamps of the updates of the selected player.
+        Update index as a parameter to store the previously selected update in case
+        the user switches from update log to "total" or "progress" mode without selecting
+        an update*/
+
         statPanel = new JPanel(new GridLayout(0,1));
-        String dates = TxtFileHandler.getUpdateDates(name);
+        String dates = TxtFileHandler.getUpdateDates(playerName);
         String[] dateArray = dates.split("\n");
         new UpdateLog(playerName, dateArray);
     }
