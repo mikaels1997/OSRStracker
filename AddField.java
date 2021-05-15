@@ -43,7 +43,7 @@ public class AddField implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Add player button is pressed
 
-        JFrame popup = new JFrame();
+        
         
         String name = playerTextField.getText().toLowerCase();
         String results = URLparser.reqPlayerStats(name);
@@ -51,11 +51,11 @@ public class AddField implements ActionListener {
         if (results == null){ // player stats not found
             if (playerNames.contains(name)){
                 // player changed name or got banned
-                JOptionPane.showMessageDialog(popup, name + "has changed nickname or been banned","Player status changed",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(Main.skillPanel, name + "has changed nickname or been banned","Player status changed",JOptionPane.PLAIN_MESSAGE);
             }
             else{
                 // player doesn't exist
-                JOptionPane.showMessageDialog(popup, "Could not find stats for player named " + name,"Player not found",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(Main.skillPanel, "Could not find stats for player named " + name,"Player not found",JOptionPane.PLAIN_MESSAGE);
             }
             // TODO, error popup
             return;
@@ -65,7 +65,7 @@ public class AddField implements ActionListener {
             if (playerNames.contains(name)){
                 // User tries to follow the same player twice
                 //TODO, error popup
-                JOptionPane.showMessageDialog(popup, "you are already tracking " + name,"Already tracked",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(Main.skillPanel, "you are already tracking " + name,"Already tracked",JOptionPane.PLAIN_MESSAGE);
             }
             else{
                 // New player added to follow list
