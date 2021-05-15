@@ -1,4 +1,5 @@
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class UpdateLog implements ActionListener {
 
         for(String date : dates){
             JButton updateButton = new JButton();
+            updateButton.setPreferredSize(new Dimension(300,40));
             updateButton.setText(date);
             updateButton.addActionListener(this);
             StatPanel.statPanel.add(updateButton);
