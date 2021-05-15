@@ -21,12 +21,14 @@ public class SkillPanelButtons implements ActionListener {
 
     public SkillPanelButtons(){
 
+        // Empty panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.red);
         buttonPanel.setLayout(new GridLayout(2,2));
         buttonPanel.setSize(new Dimension(50,50));
         buttonPanel.setVisible(true);
 
+        // Refresh button
         JButton refreshButton = new JButton();
         refreshButton.setPreferredSize(new Dimension(50,50));
         refreshButton.addActionListener(this);
@@ -34,6 +36,7 @@ public class SkillPanelButtons implements ActionListener {
         refreshButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         refreshButton.setFocusable(false);
 
+        // "Total" -state button
         JToggleButton totalButton = new JToggleButton();
         totalButton.setPreferredSize(new Dimension(50,50));
         totalButton.addActionListener(this);
@@ -41,6 +44,7 @@ public class SkillPanelButtons implements ActionListener {
         totalButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         totalButton.setFocusable(false);
 
+        // "Progress" -state button
         JToggleButton progressButton = new JToggleButton();
         progressButton.setPreferredSize(new Dimension(50,50));
         progressButton.addActionListener(this);
@@ -48,6 +52,7 @@ public class SkillPanelButtons implements ActionListener {
         progressButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         progressButton.setFocusable(false);
 
+        // "Update log" -button
         JToggleButton logButton = new JToggleButton();
         logButton.setPreferredSize(new Dimension(50,50));
         logButton.addActionListener(this);

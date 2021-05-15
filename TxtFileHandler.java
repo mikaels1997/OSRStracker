@@ -135,20 +135,26 @@ public class TxtFileHandler {
 
     public static String[] calcProgress(String name, int updateIndex){
 
+        /*Calculates the progress between two consecutive updates, which is needed
+        for the "progress" state display */
+
         String[] laterUpdate = readPlayerStats(name, updateIndex);
         String[] prevUpdate = readPlayerStats(name, updateIndex+1);
         String[] diffs = new String[laterUpdate.length-2];
 
         for(int i=1; i < laterUpdate.length-1; i++){
 
+            // Difference of ranks
             int currentRank = Integer.parseInt(laterUpdate[i].split(",")[0]);
             int prevRank = Integer.parseInt(prevUpdate[i].split(",")[0]);
             int rankDiff = currentRank - prevRank;
 
+            // Difference of levels
             int currentLvl = Integer.parseInt(laterUpdate[i].split(",")[1]);
             int prevLvl = Integer.parseInt(prevUpdate[i].split(",")[1]);
             int lvlDiff = currentLvl - prevLvl;
 
+            // Difference of experience
             int currentXp = Integer.parseInt(laterUpdate[i].split(",")[2].strip());
             int prevXp = Integer.parseInt(prevUpdate[i].split(",")[2].strip());
             int xpDiff = currentXp - prevXp;
@@ -162,6 +168,8 @@ public class TxtFileHandler {
     }
     
     public static String getTimestamp(String name, int updateIndex){
+
+        /*Reads the timestamp of certain update from the text file*/
 
         String timeStamp = "0";
 

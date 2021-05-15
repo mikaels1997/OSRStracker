@@ -23,13 +23,6 @@ public class Main {
         mainFrame.setSize(900, 600);
         mainFrame.getContentPane().setBackground(new Color(105,105,105));;
         initPanels();
-
-        //new PlayerPanel("mmmmmmmmmmmm");
-        //new PlayerPanel("lol");
-        //new PlayerPanel("asd");
-        //new PlayerPanel("hehe");
-        
-
         mainFrame.setVisible(true);
     }
 
@@ -42,7 +35,7 @@ public class Main {
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
         
-        new AddField(sidePanel);
+        new AddField();
 
         skillPanel = new JPanel();
         skillPanel.setBackground(Color.yellow);
