@@ -207,7 +207,7 @@ public class StatPanel implements MouseInputListener {
         //int localX = e.getX();
         //int localY = e.getY(); 
         //System.out.println("entered " + hoveredskill);
-        //System.out.println(localX + "," + localY);
+        //System.out.println(localX + "," + localY); 
         
     }
 
