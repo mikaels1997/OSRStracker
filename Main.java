@@ -50,10 +50,11 @@ public class Main {
         skillPanel.setPreferredSize(new Dimension(100,100));
         skillPanel.setLayout(new BorderLayout());
         skillPanel.setVisible(true);
-        JScrollPane skillscroll = new JScrollPane(skillPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        skillscroll.setVisible(true);
+        
+        
 
         mainFrame.add(scroll, BorderLayout.WEST);
+        //mainFrame.add(skillscroll, BorderLayout.EAST);
         //mainFrame.add(sidePanel, BorderLayout.WEST);
         mainFrame.add(skillPanel, BorderLayout.CENTER);
     }
