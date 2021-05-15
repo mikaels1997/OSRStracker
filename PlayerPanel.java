@@ -72,7 +72,7 @@ public class PlayerPanel implements ActionListener {
         if(e.getActionCommand().equals("-")){
             // Remove player (-) button is pressed
 
-            AddField.playerNames.remove(playerName);
+            AddField.playerNames.remove(playerName.toLowerCase());
             TxtFileHandler.removePlayer(playerName);
 
             Main.sidePanel.remove(playerPanel);

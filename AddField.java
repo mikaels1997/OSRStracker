@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -49,7 +50,7 @@ public class AddField implements ActionListener {
         String results = URLparser.reqPlayerStats(name);
 
         if (results == null){ // player stats not found
-            if (playerNames.contains(name)){
+            if (playerNames.contains(name.toLowerCase())){
                 // player changed name or got banned
                 JOptionPane.showMessageDialog(popup, name + "has changed nickname or been banned","Player status changed",JOptionPane.PLAIN_MESSAGE);
             }
@@ -62,7 +63,7 @@ public class AddField implements ActionListener {
         }
         else { // Player stats found
 
-            if (playerNames.contains(name)){
+            if (playerNames.contains(name.toLowerCase())){
                 // User tries to follow the same player twice
                 //TODO, error popup
                 JOptionPane.showMessageDialog(popup, "you are already tracking " + name,"Already tracked",JOptionPane.PLAIN_MESSAGE);
@@ -72,6 +73,7 @@ public class AddField implements ActionListener {
 
                 playerNames.add(name);
                 TxtFileHandler.updateCurrent(name, results.split(" "));
+                TxtFileHandler.addPlayer(name);
 
                 new PlayerPanel(playerTextField.getText());
                 Main.sidePanel.revalidate();

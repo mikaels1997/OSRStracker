@@ -54,6 +54,19 @@ public class Main {
         mainFrame.add(scroll, BorderLayout.WEST);
         //mainFrame.add(sidePanel, BorderLayout.WEST);
         mainFrame.add(skillPanel, BorderLayout.CENTER);
+
+        // Creates the player panels for already followed players
+        initTrackedPlayers();
+    }
+
+    public static void initTrackedPlayers(){
+        String[] players = TxtFileHandler.readPlayers();
+        for(String player:players){
+            AddField.playerNames.add(player.strip().toLowerCase());
+            new PlayerPanel(player.strip());
+        }
+        Main.sidePanel.revalidate();
+        Main.sidePanel.repaint();
     }
 
     public static int GridYaxis() {

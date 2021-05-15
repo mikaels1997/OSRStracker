@@ -83,11 +83,11 @@ public class SkillPanelButtons implements ActionListener {
         }
         if(e.getActionCommand().equals("Total")){
             // Displays the latest stats of the player in "total" mode
-            new StatPanel(name, "total", 1);
+            new StatPanel(name, "total", StatPanel.current.updateIndex);
         }
         if(e.getActionCommand().equals("Progress")){
             // Displays the stats in "progress" mode
-            new StatPanel(name, "progress", 1);
+            new StatPanel(name, "progress", StatPanel.current.updateIndex);
         }  
         if(e.getActionCommand().equals("Update log")){
             // Displays the update history and their timestamps
