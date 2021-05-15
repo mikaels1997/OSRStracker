@@ -203,8 +203,11 @@ public class StatPanel implements MouseInputListener {
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
         JLabel hoveredlabel =(JLabel)e.getSource();
-        String hoveredskill = hoveredlabel.getName(); 
+        String hoveredskill = hoveredlabel.getName();
+        //int localX = e.getX();
+        //int localY = e.getY(); 
         //System.out.println("entered " + hoveredskill);
+        //System.out.println(localX + "," + localY);
         
     }
 
