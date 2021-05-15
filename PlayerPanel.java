@@ -76,6 +76,7 @@ public class PlayerPanel implements ActionListener {
             AddField.playerNames.remove(playerName.toLowerCase());
             TxtFileHandler.removePlayer(playerName);
 
+            Main.updateLayout();
             Main.sidePanel.remove(playerPanel);
             Main.sidePanel.revalidate();
             Main.sidePanel.repaint();

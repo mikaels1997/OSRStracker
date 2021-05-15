@@ -30,7 +30,7 @@ public class Main {
 
         sidePanel = new JPanel();
         sidePanel.setBackground(Color.red);
-        sidePanel.setLayout(new GridLayout(0,1));
+        sidePanel.setLayout(new GridLayout(9,1));
         
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
@@ -42,8 +42,6 @@ public class Main {
         skillPanel.setPreferredSize(new Dimension(100,100));
         skillPanel.setLayout(new BorderLayout());
         skillPanel.setVisible(true);
-        
-        
 
         mainFrame.add(scroll, BorderLayout.WEST);
         //mainFrame.add(skillscroll, BorderLayout.EAST);
@@ -59,10 +57,25 @@ public class Main {
         for(String player:players){
             if(!player.isEmpty()){
                 AddField.playerNames.add(player.strip().toLowerCase());
+                updateLayout();
                 new PlayerPanel(player.strip());
             }
         }
         Main.sidePanel.revalidate();
         Main.sidePanel.repaint();
+    }
+
+    public static void updateLayout(){
+
+        /*This function is called every time player panels are updated (removed or added)
+        The purpose of this function is to avoid weird issues with the gridlayout of 
+        side panel */
+
+        if(AddField.playerNames.size() > 7){
+            Main.sidePanel.setLayout(new GridLayout(0,1));   
+        }
+        if(AddField.playerNames.size() <= 7 ){
+            Main.sidePanel.setLayout(new GridLayout(9,1));   
+        }
     }
 }
