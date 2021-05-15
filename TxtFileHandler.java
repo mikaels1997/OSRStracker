@@ -135,6 +135,35 @@ public class TxtFileHandler {
         return diffs;
     }
     
+    public static String getTimestamp(String name, int updateIndex){
+
+        String timeStamp = "0";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            
+            // Counts which update is handled while reading the text file
+            int currentUpdateIndex = 1;
+
+            while (line != null) {
+                if(line.startsWith("<") && currentUpdateIndex == updateIndex){
+                    currentUpdateIndex += 1;
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    return sb.toString();
+                }
+            }
+
+            line = br.readLine();
+        } catch (IOException ioe){
+            System.out.println("Failed to read the file: <"+name+">");
+        }
+
+        // Timestamp fetching is failed if it returns this
+        return timeStamp;
+    }
+
     public static Timestamp timeStamp(){
         Date date= new Date();
         long time = date.getTime();

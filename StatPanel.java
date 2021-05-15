@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.security.Timestamp;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +18,7 @@ public class StatPanel implements MouseInputListener {
 
     private String[] skills; // Skill names in certain order
     public static JPanel statPanel; // Panel containing either skill or update history
+    public static JPanel infoPanel; // Panel containing the player name and timestamp
     public JPanel buttonPanel; // Panel containing the 4 buttons
 
     public String playerName; // Current name of the player on display
@@ -27,11 +29,13 @@ public class StatPanel implements MouseInputListener {
 
     public StatPanel(String n, String s, int u){
 
-        /*Opens up a panel showing the stats of the player or update log
+        /*Opens up a panel showing the stats of the player or update log and player name 
+        and timestamp.
+        An instance of this class is always created when the statpanel is opened/updated.
+        The functions of this class is always called only when creating an instance
         name = the name of the player
         state = Either "total", "progress" state or "log" state
-        updateIndex = which update is the user looking
-        The functions of this class is always called only when creating an instance*/
+        updateIndex = which update is the user looking*/
 
         current = this;
 
@@ -56,7 +60,25 @@ public class StatPanel implements MouseInputListener {
             displayTotal(playerName, updateIndex);
         }
 
+        // Player name and timestamp
+        String timeStamp = TxtFileHandler.getTimestamp(playerName, updateIndex);
+        infoPanel = new JPanel(); // Contains player name and timestamp
+        infoPanel.setLayout(new BorderLayout());
+        infoPanel.setPreferredSize(new Dimension(60,60));
+        JLabel nameLabel = new JLabel();
+        JLabel timeLabel = new JLabel();
+        nameLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
+        System.out.println(timeStamp);
+        nameLabel.setText(playerName);
+        timeLabel.setText(timeStamp);
+
+        infoPanel.add(nameLabel, BorderLayout.WEST);
+        infoPanel.add(timeLabel, BorderLayout.EAST);
+
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
+        Main.skillPanel.add(infoPanel, BorderLayout.PAGE_START);
+
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
     }
@@ -98,8 +120,10 @@ public class StatPanel implements MouseInputListener {
 
         statPanel.setLayout(new GridLayout(24,1));
         int statIndex = 0;
-        // In diffs skill statistics are separated by space
+
+        // In diffs -string array skill statistics are separated by space
         String[] diffs = TxtFileHandler.calcProgress(name, updateIndex);
+
         for(String skill:skills){ 
 
             ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
@@ -107,15 +131,17 @@ public class StatPanel implements MouseInputListener {
             JLabel label = new JLabel();
             label.setPreferredSize(new Dimension(70,70));
 
-            label.setText(diffs[statIndex].split(" ")[0]);
+            String rank = diffs[statIndex].split(" ")[0];
+            String level = diffs[statIndex].split(" ")[1];
+            String xp = diffs[statIndex].split(" ")[2];
+
+            label.setText("Rank: "+rank+" Level: "+level+" Experience: "+xp);
             label.setFont(new Font("Dialog", Font.PLAIN, 20));
             label.setIcon(image);
             statPanel.add(label);
 
             statIndex += 1;
-        }
-        
-        
+        }   
     }
     private void showLog(String name){
 

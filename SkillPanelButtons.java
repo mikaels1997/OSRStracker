@@ -69,6 +69,7 @@ public class SkillPanelButtons implements ActionListener {
 
         // Removes the current stats panel from the skillpanel
         Main.skillPanel.remove(StatPanel.statPanel);
+        Main.skillPanel.remove(StatPanel.infoPanel);
         Main.skillPanel.revalidate();
         Main.skillPanel.repaint();
 
