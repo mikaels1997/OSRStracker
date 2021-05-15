@@ -183,7 +183,7 @@ public class TxtFileHandler {
             while (line != null) {
                 if(line.startsWith("<")){
                     if(currentUpdateIndex == updateIndex){
-                        sb.append(line);
+                        sb.append(line.substring(12,20));
                         sb.append(System.lineSeparator());
                         return sb.toString();
                     }

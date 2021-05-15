@@ -2,7 +2,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +71,8 @@ public class AddField implements ActionListener {
             else{
                 // New player added to follow list
                 
-                
                 playerNames.add(name);
+                Main.updateLayout();
                 TxtFileHandler.updateCurrent(name, results.split(" "));
                 TxtFileHandler.addPlayer(name);
 
