@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -16,6 +17,7 @@ public class PlayerPanel implements ActionListener {
     private JToggleButton playerButton;
     private JPanel playerPanel;
     private StatPanel skillPanel;
+    private static ButtonGroup playerButtonGroup = new ButtonGroup();
 
     public PlayerPanel(String name){
 
@@ -32,6 +34,7 @@ public class PlayerPanel implements ActionListener {
         playerButton.setText(name);
         playerButton.setFont(new Font("Dialog", Font.PLAIN, 12));
         playerButton.setFocusable(false);
+        playerButtonGroup.add(playerButton);
         
 
         //Adjusting the appearance of the button
