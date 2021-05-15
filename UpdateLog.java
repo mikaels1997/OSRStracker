@@ -3,7 +3,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 
 public class UpdateLog implements ActionListener {
@@ -17,7 +20,7 @@ public class UpdateLog implements ActionListener {
 
         for(String date : dates){
             JButton updateButton = new JButton();
-            updateButton.setPreferredSize(new Dimension(300,40));
+            updateButton.setPreferredSize(new Dimension(40,40));
             updateButton.setText(date);
             updateButton.addActionListener(this);
             StatPanel.statPanel.add(updateButton);

@@ -60,7 +60,7 @@ public class StatPanel implements MouseInputListener {
             displayProgress(playerName, updateIndex);
         }
         if(state.equals("log")){
-            showLog(playerName);
+            showLog(playerName, updateIndex);
         }
 
         // Player name and timestamp
@@ -86,10 +86,10 @@ public class StatPanel implements MouseInputListener {
         infoPanel.add(nameLabel, BorderLayout.WEST);
         infoPanel.add(timeLabel, BorderLayout.EAST);
 
-        JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        skillscroll.setVisible(true);
+        //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //skillscroll.setVisible(true);
 
-        Main.skillPanel.add(skillscroll, BorderLayout.EAST);
+        //Main.skillPanel.add(skillscroll, BorderLayout.EAST);
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.add(infoPanel, BorderLayout.PAGE_START);
 
@@ -154,13 +154,18 @@ public class StatPanel implements MouseInputListener {
             label.setIcon(image);
             statPanel.add(label);
 
+            //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            //skillscroll.setVisible(true);
+            //Main.skillPanel.add(skillscroll, BorderLayout.EAST);
+
             statIndex += 1;
         }   
     }
-    private void showLog(String name){
-        statPanel = new JPanel(new GridLayout(15,1));
+    private void showLog(String name, int updateIndex){
+        statPanel = new JPanel(new GridLayout(0,1));
         String dates = TxtFileHandler.getUpdateDates(name);
         String[] dateArray = dates.split("\n");
+
         new UpdateLog(playerName, dateArray);
     }
 

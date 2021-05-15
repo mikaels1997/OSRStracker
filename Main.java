@@ -37,8 +37,7 @@ public class Main {
 
         sidePanel = new JPanel();
         sidePanel.setBackground(Color.red);
-        int height = GridYaxis();
-        sidePanel.setLayout(new GridLayout(height,1));
+        sidePanel.setLayout(new GridLayout(0,1));
         
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
@@ -65,25 +64,12 @@ public class Main {
     public static void initTrackedPlayers(){
         String[] players = TxtFileHandler.readPlayers();
         for(String player:players){
-            AddField.playerNames.add(player.strip().toLowerCase());
-            new PlayerPanel(player.strip());
+            if(!player.isEmpty()){
+                AddField.playerNames.add(player.strip().toLowerCase());
+                new PlayerPanel(player.strip());
+            }
         }
         Main.sidePanel.revalidate();
         Main.sidePanel.repaint();
-    }
-
-    public static int GridYaxis() {
-
-        int panelHeight = 9;
-        if (AddField.playerNames == null) {
-            return panelHeight;
-
-        } else if (panelHeight >= AddField.playerNames.size()) {
-            return panelHeight;
-
-        } else {
-            //int listLength = AddField.playerNames.size();
-            return 0;
-        }
     }
 }
