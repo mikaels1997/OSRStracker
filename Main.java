@@ -5,12 +5,10 @@ import java.awt.GridLayout;
 import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
 
 public class Main {
 
@@ -20,8 +18,9 @@ public class Main {
 
     public static void main(String[] args){
 
+        // Initializing main frame
         mainFrame = new JFrame();
-        mainFrame.setTitle("Test");
+        mainFrame.setTitle("OSRS StatTracker");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.setSize(900, 600);
@@ -32,24 +31,29 @@ public class Main {
 
     public static void initPanels(){
 
+        /*Initializes the two main panels of the frame: sidePanel and skillPanel
+        Side panel includes the add button and the playerpanels.
+        Skill panel includes the infopanel (name and timestamp), stats and
+        buttonPanel (4 buttons) */
+
         sidePanel = new JPanel();
-        sidePanel.setBackground(Color.red);
+        sidePanel.setBackground(new Color(105,105,105));
         sidePanel.setLayout(new GridLayout(9,1));
         
+        //Scroll bar
         JScrollPane scroll = new JScrollPane(sidePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVisible(true);
         
+        // Text field and the button for player adding
         new AddField();
 
         skillPanel = new JPanel();
-        skillPanel.setBackground(Color.yellow);
+        skillPanel.setBackground(new Color(105,105,105));
         skillPanel.setPreferredSize(new Dimension(100,100));
         skillPanel.setLayout(new BorderLayout());
         skillPanel.setVisible(true);
 
         mainFrame.add(scroll, BorderLayout.WEST);
-        //mainFrame.add(skillscroll, BorderLayout.EAST);
-        //mainFrame.add(sidePanel, BorderLayout.WEST);
         mainFrame.add(skillPanel, BorderLayout.CENTER);
 
         // Creates the player panels for already followed players
@@ -57,6 +61,9 @@ public class Main {
     }
 
     public static void initTrackedPlayers(){
+
+        /*At launch the tracked players are read from previous sessions */
+
         String[] players = TxtFileHandler.readPlayers();
         for(String player:players){
             if(!player.isEmpty()){
@@ -74,8 +81,8 @@ public class Main {
     public static void updateLayout(){
 
         /*This function is called every time player panels are updated (removed or added)
-        The purpose of this function is to avoid weird issues with the gridlayout of 
-        side panel */
+        The purpose of this function is to avoid weird issues with the gridlayout and 
+        scroll bar of side panel */
 
         if(AddField.playerNames.size() > 7){
             Main.sidePanel.setLayout(new GridLayout(0,1));   

@@ -15,9 +15,10 @@ import javax.swing.JToggleButton;
 
 public class SkillPanelButtons implements ActionListener {
 
+    /*Creates a panel with four buttons. Refresh, update log, total and progress buttons*/
 
+    // For toggling the buttons
     private static ButtonGroup skillbuttonGroup = new ButtonGroup();
-    /*Creates a panel with four buttons*/
 
     public SkillPanelButtons(){
 
@@ -60,7 +61,7 @@ public class SkillPanelButtons implements ActionListener {
         logButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         logButton.setFocusable(false);
 
-        //skillbuttonGroup.add(refreshButton);
+        // For toggling
         skillbuttonGroup.add(totalButton);
         skillbuttonGroup.add(progressButton);
         skillbuttonGroup.add(logButton);
@@ -72,6 +73,7 @@ public class SkillPanelButtons implements ActionListener {
 
         totalButton.setSelected(true);
 
+        // Adding the elements to the main panels
         Main.skillPanel.add(buttonPanel, BorderLayout.PAGE_END);
         Main.sidePanel.revalidate();
         Main.sidePanel.repaint();
@@ -81,7 +83,7 @@ public class SkillPanelButtons implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         /*One of the four buttons are pressed */
 
-        String name = StatPanel.current.playerName;
+        String name = StatPanel.playerName;
 
         // Removes the current stats panel from the skillpanel
         Main.skillPanel.remove(StatPanel.statPanel);
@@ -100,15 +102,15 @@ public class SkillPanelButtons implements ActionListener {
         }
         if(e.getActionCommand().equals("Total")){
             // Displays the latest stats of the player in "total" mode
-            new StatPanel(name, "total", StatPanel.current.updateIndex);
+            new StatPanel(name, "total", StatPanel.updateIndex);
         }
         if(e.getActionCommand().equals("Progress")){
             // Displays the stats in "progress" mode
-            new StatPanel(name, "progress", StatPanel.current.updateIndex);
+            new StatPanel(name, "progress", StatPanel.updateIndex);
         }  
         if(e.getActionCommand().equals("Update log")){
             // Displays the update history and their timestamps
-            new StatPanel(name, "log", StatPanel.current.updateIndex);
+            new StatPanel(name, "log", StatPanel.updateIndex);
         }   
     }
 }

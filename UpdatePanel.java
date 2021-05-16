@@ -17,6 +17,10 @@ public class UpdatePanel implements ActionListener {
 
     public UpdatePanel(String date, String n){
         
+        if(date.equals("")){ // To avoid empty timestamps
+            return;
+        }
+
         this.name = n;
         this.date = date;
 

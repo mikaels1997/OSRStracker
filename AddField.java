@@ -14,7 +14,7 @@ public class AddField implements ActionListener {
 
     /*An instance of this class is created only once in Main since there's always
     possibility of adding a new player.
-    The purpose of this class is to add text field and "Add new" -button for the
+    The purpose of this class is to create text field and button to add players to the
     sidePanel which is created in Main */
 
     JTextField nameTextField;
@@ -26,9 +26,11 @@ public class AddField implements ActionListener {
 
         JPanel addNewPanel = new JPanel();
          
-        nameTextField = new JTextField("Add new player...", 15);
-        nameTextField.setPreferredSize(new Dimension(180,50));
+        // Text field
+        nameTextField = new JTextField("Add new player...", 16);
+        nameTextField.setPreferredSize(new Dimension(180,51));
 
+        // Add button
         JButton addButton = new JButton();
         addButton.setPreferredSize(new Dimension(50,50));
         addButton.addActionListener(this);
@@ -36,6 +38,7 @@ public class AddField implements ActionListener {
         addButton.setFont(new Font("Dialog", Font.PLAIN, 27));
         addButton.setFocusable(false);
 
+        // Adding text field and button to a panel
         addNewPanel.add(nameTextField);
         addNewPanel.add(addButton);
 
@@ -46,12 +49,13 @@ public class AddField implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // "Add player" button is pressed
 
+        // Getting the text from field and requesting stats from URL
         String name = nameTextField.getText().toLowerCase();
         String results = URLparser.reqPlayerStats(name);
 
         if (results == null){ // player stats not found
             if (playerNames.contains(name.toLowerCase())){
-                // player changed name or got banned (no easy way to check this unfortunately)
+                // player changed name or got banned (no easy way to rename the player unfortunately)
                 JOptionPane.showMessageDialog(Main.skillPanel, "Player <"+name+"> has changed nickname or been banned","Player status changed",JOptionPane.PLAIN_MESSAGE);
             }
             else{
@@ -72,11 +76,11 @@ public class AddField implements ActionListener {
                 // New player added to follow list
                 
                 playerNames.add(name);
-                Main.updateLayout();
-                TxtFileHandler.updateCurrent(name, results.split(" "));
-                TxtFileHandler.addPlayer(name);
+                Main.updateLayout(); // To make scrollbar work
+                TxtFileHandler.updateCurrent(name, results.split(" ")); // Updating to txtfile
+                TxtFileHandler.addPlayer(name); // Adding player to player.txt
 
-                new PlayerPanel(nameTextField.getText());
+                new PlayerPanel(nameTextField.getText()); // Creating panel for the player
                 Main.sidePanel.revalidate();
                 Main.sidePanel.repaint();
             }

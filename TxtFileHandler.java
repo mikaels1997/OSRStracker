@@ -11,11 +11,9 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 public class TxtFileHandler {
-
-    private static FileWriter file;
     
+    String name;
     private TxtFileHandler(){
-
     }
 
     public static void updateCurrent(String name, String[] txt){
@@ -26,11 +24,11 @@ public class TxtFileHandler {
 
         // First removes the file to keep newest update on top (there's no easier way)
         String[] previousUpdates = readPlayerStats(name, -1);
-        File txtFile = new File(name +".txt");
-        txtFile.delete();
+        File playerFile = new File("stats", name +".txt");
+        playerFile.delete();
 
         try (BufferedWriter writer = new BufferedWriter(
-            new FileWriter(name+".txt", true));){
+            new FileWriter(playerFile, true));){
                 // Write timestamp on the first row
                 writer.write("<"+timeStamp().toString()+ ">\n");
 
@@ -61,7 +59,7 @@ public class TxtFileHandler {
     /* Deletes the the player.txt file. 
     Called when user presses the "-" button next to the player's name in the sidepanel */
 
-        File txtFile = new File(name +".txt");
+        File txtFile = new File("stats", name +".txt");
         if(txtFile.delete()){
             System.out.println("Deleted the file: " + txtFile.getName());
         }
@@ -101,7 +99,9 @@ public class TxtFileHandler {
         update */
 
         String[] stats = null;
-        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+        File playerFile = new File("stats", name+".txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(playerFile))){
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             
@@ -140,13 +140,13 @@ public class TxtFileHandler {
 
         String[] laterUpdate = readPlayerStats(name, updateIndex);
         String[] prevUpdate = readPlayerStats(name, updateIndex+1);
-        String[] diffs = new String[laterUpdate.length-2];
 
-        if(prevUpdate.length == 1){
+        if(prevUpdate.length == 1 || laterUpdate.length == 1){
             // There is no previous updates
             return new String[]{"First update"};
         }
-
+        
+        String[] diffs = new String[laterUpdate.length-2];
         for(int i=1; i < laterUpdate.length-1; i++){
 
             // Difference of ranks
@@ -177,8 +177,9 @@ public class TxtFileHandler {
         /*Reads the timestamp of certain update from the text file*/
 
         String timeStamp = "0";
+        File playerFile = new File("stats", name+".txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader(playerFile))){
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             
@@ -209,8 +210,10 @@ public class TxtFileHandler {
         /*Reads through the txt file of certain player and gathers all the 
         timestamps of the updates (needed for update log)*/
 
+        File playerFile = new File("stats", name+".txt");
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+
+        try (BufferedReader br = new BufferedReader(new FileReader(playerFile))){
             String line = br.readLine();
 
             while (line != null) {
@@ -232,8 +235,8 @@ public class TxtFileHandler {
 
         String[] dates = UpdateLog.dates.toArray(new String[0]);
         int tempIndex = 1;
-        File txtFile = new File(name +".txt");
-        File tempFile = new File("temp.txt");
+        File txtFile = new File("stats", name +".txt");
+        File tempFile = new File("stats", "temp.txt");
         try (BufferedWriter writer = new BufferedWriter(
             new FileWriter(tempFile, true));){
                 for(String date:dates){
@@ -298,7 +301,9 @@ public class TxtFileHandler {
         StringBuilder sb = new StringBuilder();
         int currentUpdateIndex = 0;
         int currentSkillIndex = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+        File playerFile = new File("stats",name+".txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(playerFile))){
             String line = br.readLine();
 
             while (line != null) {

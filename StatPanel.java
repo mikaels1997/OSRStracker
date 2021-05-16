@@ -11,13 +11,9 @@ import java.awt.MouseInfo;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextField;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.border.Border;
@@ -30,11 +26,9 @@ public class StatPanel implements MouseInputListener {
     public static JPanel infoPanel; // Panel containing the player name and timestamp
     public JPanel buttonPanel; // Panel containing the 4 buttons
 
-    public String playerName; // Current name of the player on display
+    public static String playerName; // Current name of the player on display
     public String state; // Current display state ("total", "progress", "update log")
     public static int updateIndex; // Current update index 1 being the newest
-
-    public static StatPanel current;
 
     public static Popup popup;
 
@@ -48,8 +42,6 @@ public class StatPanel implements MouseInputListener {
         state = Either "total", "progress" state or "log" state
         updateIndex = which update is the user looking*/
 
-        current = this;
-
         this.playerName = n;
         this.state = s;
         this.updateIndex = u;
@@ -59,15 +51,13 @@ public class StatPanel implements MouseInputListener {
         "thieving", "slayer", "farming", "runecrafting", "hunter", "construction"};
 
         statPanel = new JPanel();
-        statPanel.setBackground(Color.green);
+        statPanel.setBackground(Color.gray);
 
         if(state.equals("total")){
             displayTotal(updateIndex);
         }
         if(state.equals("progress")){
-            if(!displayProgress(updateIndex)){
-                firstUpdateInfo();
-            }
+            displayProgress(updateIndex);
         }
         if(state.equals("log")){
             showLog();
@@ -109,16 +99,23 @@ public class StatPanel implements MouseInputListener {
 
     private void displayTotal(int updateIndex){
 
-        /*Reads the skills of latest update from text file
+        /*Reads the skills of requested update from text file
         Displays the skill icons and corresponding leves in a grid*/
 
         statPanel.setLayout(new GridLayout(10,3));
         Border border = BorderFactory.createLineBorder(Color.black, 3);
 
-        String[] stats = TxtFileHandler.readPlayerStats(playerName, 1);
+        String[] stats = TxtFileHandler.readPlayerStats(playerName, updateIndex);
         int statIndex = 1;
 
+        if(stats.length == 1){ // No updates are done -> informing the user
+            statPanel.setLayout(new BorderLayout());
+            informRefresh();
+            return;
+        }
+
         // Loops through skills in the order determined in the "skills" -string array
+        // Adds information and graphics for every skill to the grid
         for(String skill:skills){ 
 
             // Only the level is initially shown in "total" state
@@ -127,27 +124,28 @@ public class StatPanel implements MouseInputListener {
             // Fetches the image for every skill
             ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
             .getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-            JLabel label = new JLabel();
-            label.setPreferredSize(new Dimension(70,70));
+            JLabel skillLabel = new JLabel();
+            skillLabel.setPreferredSize(new Dimension(70,70));
 
-            label.setText(stat);
-            label.setFont(new Font("Dialog", Font.PLAIN, 20));
-            label.setIcon(image);
-            label.setBorder(border);
-            label.setName(skill);
-            label.addMouseListener(this);
-            statPanel.add(label);
+            skillLabel.setText(stat);
+            skillLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
+            skillLabel.setIcon(image);
+            skillLabel.setBorder(border);
+            skillLabel.setName(skill);
+            skillLabel.addMouseListener(this);
+            statPanel.add(skillLabel);
 
             statIndex += 1;
         }
     }
 
-    private boolean displayProgress(int updateIndex){
+    private void displayProgress(int updateIndex){
 
         /*Displays the skill in "progress" mode.
         The progression is determined by comparing the rank, level and
         experience of the player from current selected update to its
-        previous update. If there's no previous updates, a text label is shown.*/
+        previous update. If there's no previous updates, a text label is shown.
+        Returns false if no progress can be shown.*/
 
         statPanel.setLayout(new GridLayout(24,1));
         int statIndex = 0;
@@ -157,10 +155,12 @@ public class StatPanel implements MouseInputListener {
         if(diffs.length == 1){
             // First update; no progress can be shown
             statPanel.setLayout(new BorderLayout());
-            return false;
+            firstUpdateInfo();
+            return;
         }
 
         // Loops through skills in the order determined in the "skills" -string array
+        // Adds information of every skill to the grid
         for(String skill:skills){ 
 
             ImageIcon image = new ImageIcon(new ImageIcon("resources//"+skill+".png")
@@ -168,29 +168,18 @@ public class StatPanel implements MouseInputListener {
             JLabel label = new JLabel();
             label.setPreferredSize(new Dimension(70,70));
 
+            // In progress mode every statistic is shown initially unlike in total mode
             String rank = diffs[statIndex].split(" ")[0];
             String level = diffs[statIndex].split(" ")[1];
             String xp = diffs[statIndex].split(" ")[2];
 
-            label.setText("Rank: "+rank+" Level: "+level+" Experience: "+xp);
+            label.setText("Rank: "+rank+" Lvl: "+level+" Xp: "+xp);
             label.setFont(new Font("Dialog", Font.PLAIN, 20));
             label.setIcon(image);
             statPanel.add(label);
 
             statIndex += 1;
         }   
-        return true;
-    }
-
-    private void firstUpdateInfo(){
-        JTextArea text = new JTextArea();
-        text.setFont(new Font("Dialog", Font.PLAIN, 20));
-        text.setText("The selected update was the first update; therefore no progress can be shown");
-        text.setWrapStyleWord(true);
-        text.setLineWrap(true);
-        text.setEditable(false);
-        text.setFocusable(false);
-        statPanel.add(text);
     }
 
     private void showLog(){
@@ -204,7 +193,36 @@ public class StatPanel implements MouseInputListener {
         String dates = TxtFileHandler.getUpdateDates(playerName);
         String[] dateArray = dates.split("\n");
 
+        if(dates.length() == 0){
+            // Informs the user to press refresh
+            statPanel.setLayout(new BorderLayout());
+            informRefresh();
+            return;
+        }
+
         new UpdateLog(playerName, dateArray);
+    }
+
+    private void firstUpdateInfo(){
+        JTextArea text = new JTextArea();
+        text.setFont(new Font("Dialog", Font.PLAIN, 20));
+        text.setText("The selected update was the first update or there's no updates at all; therefore no progress can be shown");
+        text.setWrapStyleWord(true);
+        text.setLineWrap(true);
+        text.setEditable(false);
+        text.setFocusable(false);
+        statPanel.add(text);
+    }
+
+    private void informRefresh(){
+        JTextArea text = new JTextArea();
+        text.setFont(new Font("Dialog", Font.PLAIN, 20));
+        text.setText("Press refresh to start tracking!");
+        text.setWrapStyleWord(true);
+        text.setLineWrap(true);
+        text.setEditable(false);
+        text.setFocusable(false);
+        statPanel.add(text);
     }
 
     private void showPopup(JLabel label, String skillname){

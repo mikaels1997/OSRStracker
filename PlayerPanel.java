@@ -35,29 +35,12 @@ public class PlayerPanel implements ActionListener {
         playerButton.setFocusable(false);
         playerButtonGroup.add(playerButton);
         
-
-        //Adjusting the appearance of the button
-        // playerButton.setFocusPainted(false);
-        // playerButton.setMargin(new Insets(0, 0, 0, 0));
-        // playerButton.setContentAreaFilled(false);
-        // playerButton.setBorderPainted(false);
-        // playerButton.setOpaque(false);
-        // playerButton.setVisible(true);
-
         removeButton = new JButton();
         removeButton.setPreferredSize(new Dimension(50,50));
         removeButton.addActionListener(this);
         removeButton.setText("-");
         removeButton.setFont(new Font("Dialog", Font.PLAIN, 30));
         removeButton.setFocusable(false);
-
-        //Adjusting the appearance of the button
-        // removeButton.setFocusPainted(false);
-        // removeButton.setMargin(new Insets(0, 0, 0, 0));
-        // removeButton.setContentAreaFilled(false);
-        // removeButton.setBorderPainted(false);
-        // removeButton.setOpaque(false);
-        // removeButton.setVisible(true);
 
         playerPanel.add(playerButton, BorderLayout.EAST);
         playerPanel.add(removeButton, BorderLayout.EAST);
@@ -92,3 +75,11 @@ public class PlayerPanel implements ActionListener {
         }
     }
 }
+
+        //Adjusting the appearance of the button
+        // removeButton.setFocusPainted(false);
+        // removeButton.setMargin(new Insets(0, 0, 0, 0));
+        // removeButton.setContentAreaFilled(false);
+        // removeButton.setBorderPainted(false);
+        // removeButton.setOpaque(false);
+        // removeButton.setVisible(true);
