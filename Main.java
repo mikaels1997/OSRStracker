@@ -10,7 +10,7 @@ import javax.swing.ScrollPaneConstants;
 
 public class Main {
 
-    private static JFrame mainFrame;
+    public static JFrame mainFrame;
     public static JPanel sidePanel;
     public static JPanel skillPanel;
 

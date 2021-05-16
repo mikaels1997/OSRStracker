@@ -10,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
@@ -82,10 +84,10 @@ public class StatPanel implements MouseInputListener {
         infoPanel.add(nameLabel, BorderLayout.WEST);
         infoPanel.add(timeLabel, BorderLayout.EAST);
 
-        //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         //skillscroll.setVisible(true);
+        Main.skillPanel.add(skillscroll, BorderLayout.EAST);
 
-        //Main.skillPanel.add(skillscroll, BorderLayout.EAST);
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.add(infoPanel, BorderLayout.PAGE_START);
 
@@ -174,7 +176,6 @@ public class StatPanel implements MouseInputListener {
         the user switches from update log to "total" or "progress" mode without selecting
         an update*/
 
-        statPanel = new JPanel(new GridLayout(0,1));
         String dates = TxtFileHandler.getUpdateDates(playerName);
         String[] dateArray = dates.split("\n");
 

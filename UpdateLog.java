@@ -2,9 +2,11 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.Arrays;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -22,13 +24,25 @@ public class UpdateLog implements ActionListener {
         dates = d;
         name = n;
 
+        StatPanel.statPanel.setLayout(new GridLayout(0, 1));
+
+        // if(dates.length > 7){
+        //     StatPanel.statPanel.setLayout(new GridLayout(0, 1));
+        // }
         for(String date : dates){
             JButton updateButton = new JButton();
             updateButton.setPreferredSize(new Dimension(40,40));
             updateButton.setText(date);
             updateButton.addActionListener(this);
-            StatPanel.statPanel.add(updateButton);
+            updateButton.setFocusable(false);
+            StatPanel.statPanel.add(updateButton);    
+
         }
+        //JScrollPane scroll = new JScrollPane(updatePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //scroll.setVisible(true);
+        //Main.mainFrame.add(scroll);
+        //Main.mainFrame.revalidate();
+        //Main.mainFrame.repaint();
     }
 
     @Override
