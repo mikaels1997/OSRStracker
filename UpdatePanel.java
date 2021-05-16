@@ -1,9 +1,6 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
@@ -15,14 +12,14 @@ public class UpdatePanel implements ActionListener {
     private String date;
     private JPanel updatePanel = new JPanel();
 
-    public UpdatePanel(String date, String n){
+    public UpdatePanel(String d, String n){
         
-        if(date.equals("")){ // To avoid empty timestamps
+        if(d.equals("")){ // To avoid empty timestamps
             return;
         }
 
         this.name = n;
-        this.date = date;
+        this.date = d;
 
         JButton updateButton = new JButton();
         updateButton.setPreferredSize(new Dimension(180, 30));
@@ -60,7 +57,7 @@ public class UpdatePanel implements ActionListener {
             UpdateLog.dates.remove(UpdateLog.dates.indexOf(date));
 
             // In case user goes to total or progress state straight from update log
-            // and the deleted update was selected
+            // and the deleted update was looked at previously
             StatPanel.updateIndex = 1;
 
             StatPanel.statPanel.revalidate();

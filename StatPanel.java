@@ -80,7 +80,12 @@ public class StatPanel implements MouseInputListener {
             timeLabel.setText("From " + prevTimeStamp+" to "+timeStamp);
         }
         else{
-            timeLabel.setText(timeStamp);
+            if(updateIndex == 1){ // Newest update
+                timeLabel.setText("(Newest) "+timeStamp);
+            }
+            else{
+                timeLabel.setText(timeStamp);
+            }
         }
 
         infoPanel.add(nameLabel, BorderLayout.WEST);
@@ -143,7 +148,7 @@ public class StatPanel implements MouseInputListener {
         previous update. If there's no previous updates, a text label is shown.
         Returns false if no progress can be shown.*/
 
-        statPanel.setLayout(new GridLayout(24,1));
+        statPanel.setLayout(new GridLayout(12,2));
         int statIndex = 0;
 
         // In diffs -string array skill statistics are separated by space
