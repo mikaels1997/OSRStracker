@@ -86,10 +86,6 @@ public class StatPanel implements MouseInputListener {
         infoPanel.add(nameLabel, BorderLayout.WEST);
         infoPanel.add(timeLabel, BorderLayout.EAST);
 
-        //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //skillscroll.setVisible(true);
-       // Main.skillPanel.add(skillscroll, BorderLayout.EAST);
-
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.add(infoPanel, BorderLayout.PAGE_START);
 
@@ -238,13 +234,14 @@ public class StatPanel implements MouseInputListener {
 
         p.add(new JLabel("<html>" + skillname + "<br/>" +"Rank: "+textToShow[0]+ "<br/>" + "Level: "+textToShow[1]+ "<br/>" + "Xp: "+textToShow[2] + "</html>"));
         PopupFactory pf = PopupFactory.getSharedInstance();
-        popup = pf.getPopup(label, p, mouseCoordinates.x, mouseCoordinates.y);
+        popup = pf.getPopup(label, p, mouseCoordinates.x + 2, mouseCoordinates.y - 2);
         popup.show();
     }
 
     private void hidePopup(){
         popup.hide();
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -265,20 +262,11 @@ public class StatPanel implements MouseInputListener {
     public void mouseEntered(MouseEvent e) {
         JLabel hoveredlabel =(JLabel)e.getSource();
         String hoveredskill = hoveredlabel.getName();
-        showPopup(hoveredlabel, hoveredskill);
-    
-        //int localX = e.getX();
-        //int localY = e.getY(); 
-        //System.out.println("entered " + hoveredskill);
-        //System.out.println(localX + "," + localY);
-        
+        showPopup(hoveredlabel, hoveredskill);     
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        //JLabel hoveredlabel =(JLabel)e.getSource();
-        //String hoveredskill = hoveredlabel.getName(); 
-        //System.out.println("exited " + hoveredskill);
         hidePopup();
 
         
