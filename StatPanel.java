@@ -4,14 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.MouseInfo;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextField;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
@@ -27,6 +33,8 @@ public class StatPanel implements MouseInputListener {
     public int updateIndex; // Current update index 1 being the newest
 
     public static StatPanel current;
+
+    public static Popup popup;
 
     public StatPanel(String n, String s, int u){
 
@@ -182,6 +190,22 @@ public class StatPanel implements MouseInputListener {
         new UpdateLog(playerName, dateArray);
     }
 
+    private void showPopup(JLabel label, String skillname){
+
+        Point mouseCoordinates;
+        mouseCoordinates = MouseInfo.getPointerInfo().getLocation();
+        JPanel p = new JPanel();
+        p.add(new JLabel(skillname));
+        PopupFactory pf = PopupFactory.getSharedInstance();
+        popup = pf.getPopup(label, p, mouseCoordinates.x, mouseCoordinates.y);
+        popup.show();
+
+    }
+
+    private void hidePopup(){
+        popup.hide();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -196,37 +220,38 @@ public class StatPanel implements MouseInputListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
         JLabel hoveredlabel =(JLabel)e.getSource();
-        String hoveredskill = hoveredlabel.getName(); 
+        String hoveredskill = hoveredlabel.getName();
+        showPopup(hoveredlabel, hoveredskill);
+        //int localX = e.getX();
+        //int localY = e.getY(); 
         //System.out.println("entered " + hoveredskill);
+        //System.out.println(localX + "," + localY);
         
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        JLabel hoveredlabel =(JLabel)e.getSource();
-        String hoveredskill = hoveredlabel.getName(); 
+        //JLabel hoveredlabel =(JLabel)e.getSource();
+        //String hoveredskill = hoveredlabel.getName(); 
         //System.out.println("exited " + hoveredskill);
+        hidePopup();
+        
         
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
         
     }
 }
