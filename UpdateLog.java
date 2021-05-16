@@ -24,25 +24,21 @@ public class UpdateLog implements ActionListener {
         dates = d;
         name = n;
 
-        StatPanel.statPanel.setLayout(new GridLayout(0, 1));
+        StatPanel.statPanel.setLayout(new GridLayout(9, 1));
 
-        // if(dates.length > 7){
-        //     StatPanel.statPanel.setLayout(new GridLayout(0, 1));
-        // }
         for(String date : dates){
             JButton updateButton = new JButton();
-            updateButton.setPreferredSize(new Dimension(40,40));
+            updateButton.setPreferredSize(new Dimension(100,100));
             updateButton.setText(date);
             updateButton.addActionListener(this);
             updateButton.setFocusable(false);
-            StatPanel.statPanel.add(updateButton);    
+            StatPanel.statPanel.add(updateButton);  
 
         }
-        //JScrollPane scroll = new JScrollPane(updatePanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //scroll.setVisible(true);
-        //Main.mainFrame.add(scroll);
-        //Main.mainFrame.revalidate();
-        //Main.mainFrame.repaint();
+        // JScrollPane scroll = new JScrollPane(StatPanel.statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        // Main.mainFrame.getContentPane().add(scroll, BorderLayout.CENTER);
+        // Main.mainFrame.revalidate();
+        // Main.mainFrame.repaint();
     }
 
     @Override

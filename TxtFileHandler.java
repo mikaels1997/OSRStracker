@@ -142,6 +142,11 @@ public class TxtFileHandler {
         String[] prevUpdate = readPlayerStats(name, updateIndex+1);
         String[] diffs = new String[laterUpdate.length-2];
 
+        if(prevUpdate.length == 1){
+            // There is no previous updates
+            return new String[]{"First update"};
+        }
+
         for(int i=1; i < laterUpdate.length-1; i++){
 
             // Difference of ranks
@@ -201,6 +206,9 @@ public class TxtFileHandler {
 
     public static String getUpdateDates(String name){
 
+        /*Reads through the txt file of certain player and gathers all the 
+        timestamps of the updates (needed for update log)*/
+
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
             String line = br.readLine();
@@ -232,6 +240,9 @@ public class TxtFileHandler {
 
     public static String[] readPlayers(){
 
+        /*Gathers all the followed players from players.txt file. For storing
+        the players even after the user session ends. */
+
         String[] players = null;
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader("players.txt"))){
@@ -247,6 +258,37 @@ public class TxtFileHandler {
         }
         players = sb.toString().split("\n");
         return players;
+    }
+
+    public static String[] readCertainSkill(String name, int skillIndex, int updateIndex){
+
+        /*Reads text file filtered by player name, update date and the skill.
+        Needed for mouse hover popups when displaying skill in "total" -mode */
+
+        StringBuilder sb = new StringBuilder();
+        int currentUpdateIndex = 0;
+        int currentSkillIndex = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(name+".txt"))){
+            String line = br.readLine();
+
+            while (line != null) {
+                if(currentUpdateIndex == updateIndex){
+                    if(currentSkillIndex == skillIndex){
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                        return sb.toString().split(",");
+                    }
+                    currentSkillIndex += 1;
+                }
+                if(line.startsWith("<")){
+                    currentUpdateIndex += 1;
+                }
+                line = br.readLine();
+            }
+        } catch (IOException ioe){
+                System.out.println("Failed to read players.txt file:");
+        }
+        return new String[]{"Failed to fetch data"};
     }
 
     public static Timestamp timeStamp(){

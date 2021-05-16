@@ -78,8 +78,11 @@ public class PlayerPanel implements ActionListener {
 
             Main.updateLayout();
             Main.sidePanel.remove(playerPanel);
+            Main.skillPanel.removeAll();
             Main.sidePanel.revalidate();
             Main.sidePanel.repaint();
+            Main.skillPanel.revalidate();
+            Main.skillPanel.repaint();
         }
         else {
             // The name of the player is pressed -> stats of that player is displayed

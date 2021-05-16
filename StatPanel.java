@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.awt.MouseInfo;
 
 import javax.swing.BorderFactory;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
 import javax.swing.Popup;
@@ -63,7 +65,9 @@ public class StatPanel implements MouseInputListener {
             displayTotal(updateIndex);
         }
         if(state.equals("progress")){
-            displayProgress(updateIndex);
+            if(!displayProgress(updateIndex)){
+                firstUpdateInfo();
+            }
         }
         if(state.equals("log")){
             showLog();
@@ -92,9 +96,9 @@ public class StatPanel implements MouseInputListener {
         infoPanel.add(nameLabel, BorderLayout.WEST);
         infoPanel.add(timeLabel, BorderLayout.EAST);
 
-        JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         //skillscroll.setVisible(true);
-        Main.skillPanel.add(skillscroll, BorderLayout.EAST);
+       // Main.skillPanel.add(skillscroll, BorderLayout.EAST);
 
         Main.skillPanel.add(statPanel, BorderLayout.CENTER);
         Main.skillPanel.add(infoPanel, BorderLayout.PAGE_START);
@@ -138,7 +142,7 @@ public class StatPanel implements MouseInputListener {
         }
     }
 
-    private void displayProgress(int updateIndex){
+    private boolean displayProgress(int updateIndex){
 
         /*Displays the skill in "progress" mode.
         The progression is determined by comparing the rank, level and
@@ -150,6 +154,10 @@ public class StatPanel implements MouseInputListener {
 
         // In diffs -string array skill statistics are separated by space
         String[] diffs = TxtFileHandler.calcProgress(playerName, updateIndex);
+        if(diffs.length == 1){
+            // First update; no progress can be shown
+            return false;
+        }
 
         // Loops through skills in the order determined in the "skills" -string array
         for(String skill:skills){ 
@@ -168,12 +176,20 @@ public class StatPanel implements MouseInputListener {
             label.setIcon(image);
             statPanel.add(label);
 
-            //JScrollPane skillscroll = new JScrollPane(statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            //skillscroll.setVisible(true);
-            //Main.skillPanel.add(skillscroll, BorderLayout.EAST);
-
             statIndex += 1;
         }   
+        return true;
+    }
+
+    private void firstUpdateInfo(){
+        JTextArea text = new JTextArea();
+        text.setFont(new Font("Dialog", Font.PLAIN, 20));
+        text.setText("The selected update was the first update; therefore no progress can be shown");
+        text.setWrapStyleWord(true);
+        text.setLineWrap(true);
+        text.setEditable(false);
+        text.setFocusable(false);
+        statPanel.add(text);
     }
 
     private void showLog(){
@@ -195,7 +211,12 @@ public class StatPanel implements MouseInputListener {
         Point mouseCoordinates;
         mouseCoordinates = MouseInfo.getPointerInfo().getLocation();
         JPanel p = new JPanel();
-        p.add(new JLabel(skillname));
+
+        //Fetching the data from certain skill
+        int skillIndex = Arrays.asList(skills).indexOf(skillname);
+        String[] textToShow = TxtFileHandler.readCertainSkill(playerName, skillIndex, updateIndex);
+
+        p.add(new JLabel("Rank: "+textToShow[0]+"\nLevel: "+textToShow[1]+"\nXp:"+textToShow[2]));
         PopupFactory pf = PopupFactory.getSharedInstance();
         popup = pf.getPopup(label, p, mouseCoordinates.x, mouseCoordinates.y);
         popup.show();

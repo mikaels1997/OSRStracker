@@ -2,11 +2,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 
 public class Main {
 
@@ -59,7 +63,9 @@ public class Main {
                 AddField.playerNames.add(player.strip().toLowerCase());
                 updateLayout();
                 new PlayerPanel(player.strip());
+                continue;
             }
+            infoText();
         }
         Main.sidePanel.revalidate();
         Main.sidePanel.repaint();
@@ -77,5 +83,19 @@ public class Main {
         if(AddField.playerNames.size() <= 7 ){
             Main.sidePanel.setLayout(new GridLayout(9,1));   
         }
+    }
+
+    public static void infoText(){
+
+        /*Informs the user if he has not followed any players */
+
+        JTextArea text = new JTextArea();
+        text.setFont(new Font("Dialog", Font.PLAIN, 20));
+        text.setText("You have not followed any players. Write the name of the player you want to track by typing the name to the \"Add new player...\" -field");
+        text.setWrapStyleWord(true);
+        text.setLineWrap(true);
+        text.setEditable(false);
+        text.setFocusable(false);
+        skillPanel.add(text, BorderLayout.CENTER);
     }
 }
