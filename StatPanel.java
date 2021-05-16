@@ -32,7 +32,7 @@ public class StatPanel implements MouseInputListener {
 
     public String playerName; // Current name of the player on display
     public String state; // Current display state ("total", "progress", "update log")
-    public int updateIndex; // Current update index 1 being the newest
+    public static int updateIndex; // Current update index 1 being the newest
 
     public static StatPanel current;
 
@@ -87,7 +87,7 @@ public class StatPanel implements MouseInputListener {
 
         if(this.state.equals("progress")){ // Shows two timestamps
             String prevTimeStamp = TxtFileHandler.getTimestamp(playerName, updateIndex+1);
-            timeLabel.setText(timeStamp+" - "+prevTimeStamp);
+            timeLabel.setText("From " + prevTimeStamp+" to "+timeStamp);
         }
         else{
             timeLabel.setText(timeStamp);

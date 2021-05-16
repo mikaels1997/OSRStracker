@@ -226,6 +226,36 @@ public class TxtFileHandler {
         return sb.toString();
     }
 
+    public static void removeUpdate(String name, int updateIndex){
+
+        /*Removes certain update from the text file.*/
+
+        String[] dates = UpdateLog.dates.toArray(new String[0]);
+        int tempIndex = 1;
+        File txtFile = new File(name +".txt");
+        File tempFile = new File("temp.txt");
+        try (BufferedWriter writer = new BufferedWriter(
+            new FileWriter(tempFile, true));){
+                for(String date:dates){
+                    if(tempIndex == updateIndex){
+                        tempIndex += 1;
+                        continue;
+                    }
+                    String[] updateData = readPlayerStats(name, tempIndex);
+                    for(String stat: updateData){
+                        writer.write(stat+"\n");
+                    }
+                    tempIndex += 1;
+                }
+            } catch (IOException ioe){
+                System.out.println("Problem reading the file");
+        }
+        if(txtFile.delete()){
+            System.out.println("Deleted the file: " + txtFile.getName());
+        }
+        tempFile.renameTo(txtFile);
+    }
+
     public static void addPlayer(String player){
         /*Adds player to players.txt file*/
 
