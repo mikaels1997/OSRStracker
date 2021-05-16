@@ -156,6 +156,7 @@ public class StatPanel implements MouseInputListener {
         String[] diffs = TxtFileHandler.calcProgress(playerName, updateIndex);
         if(diffs.length == 1){
             // First update; no progress can be shown
+            statPanel.setLayout(new BorderLayout());
             return false;
         }
 
