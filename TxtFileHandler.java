@@ -189,7 +189,7 @@ public class TxtFileHandler {
             while (line != null) {
                 if(line.startsWith("<")){
                     if(currentUpdateIndex == updateIndex){
-                        sb.append(line.substring(12,20));
+                        sb.append(line.substring(1,17));
                         sb.append(System.lineSeparator());
                         return sb.toString();
                     }
@@ -217,8 +217,8 @@ public class TxtFileHandler {
             String line = br.readLine();
 
             while (line != null) {
-                if(line.startsWith("<")){
-                    sb.append(line.substring(1,line.length()-1));
+                if(line.startsWith("<")){ // New timestamp
+                    sb.append(line.substring(1,17));
                     sb.append(System.lineSeparator());
                 }
                 line = br.readLine();

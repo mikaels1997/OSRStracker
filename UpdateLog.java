@@ -1,18 +1,8 @@
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-
 
 public class UpdateLog {
 
@@ -33,10 +23,6 @@ public class UpdateLog {
             new UpdatePanel(date, name);
 
         }
-        // JScrollPane scroll = new JScrollPane(StatPanel.statPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        // Main.mainFrame.getContentPane().add(scroll, BorderLayout.CENTER);
-        // Main.mainFrame.revalidate();
-        // Main.mainFrame.repaint();
     }
 
 

@@ -5,13 +5,14 @@ import java.util.Scanner;
 
 public class URLparser {
     
+   /*Executes an URL query from Jagex highscores endpoint */
+
     private URLparser(){
     }
     
     public static String reqPlayerStats(String name) {
         String result = null;
         try {
-           Thread.sleep(100); // To avoid too fast queries (Jagex doesnt like it)
            URL url = new URL("https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + name);
            Scanner sc = new Scanner(url.openStream());
            StringBuffer sb = new StringBuffer();
@@ -26,8 +27,6 @@ public class URLparser {
            return result;
         } catch (IOException ioe){
            System.out.println("Player not found");
-        } catch (InterruptedException ie){
-           System.out.println("Sleep() didnt work");
         }
         return result;
      }
