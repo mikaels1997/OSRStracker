@@ -218,7 +218,7 @@ public class StatPanel implements MouseInputListener {
         int skillIndex = Arrays.asList(skills).indexOf(skillname);
         String[] textToShow = TxtFileHandler.readCertainSkill(playerName, skillIndex, updateIndex);
 
-        p.add(new JLabel("<html>" + skillname + "<br/>" +"Rank: "+textToShow[0]+ "<br/>" + "Level: "+textToShow[1]+ "<br/>" + "Xp:"+textToShow[2] + "</html>"));
+        p.add(new JLabel("<html>" + skillname + "<br/>" +"Rank: "+textToShow[0]+ "<br/>" + "Level: "+textToShow[1]+ "<br/>" + "Xp: "+textToShow[2] + "</html>"));
         PopupFactory pf = PopupFactory.getSharedInstance();
         popup = pf.getPopup(label, p, mouseCoordinates.x, mouseCoordinates.y);
         popup.show();
