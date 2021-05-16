@@ -209,6 +209,7 @@ public class StatPanel implements MouseInputListener {
 
     private void showPopup(JLabel label, String skillname){
 
+
         Point mouseCoordinates;
         mouseCoordinates = MouseInfo.getPointerInfo().getLocation();
         JPanel p = new JPanel();
@@ -217,11 +218,10 @@ public class StatPanel implements MouseInputListener {
         int skillIndex = Arrays.asList(skills).indexOf(skillname);
         String[] textToShow = TxtFileHandler.readCertainSkill(playerName, skillIndex, updateIndex);
 
-        p.add(new JLabel("Rank: "+textToShow[0]+"\nLevel: "+textToShow[1]+"\nXp:"+textToShow[2]));
+        p.add(new JLabel("<html>" + skillname + "<br/>" +"Rank: "+textToShow[0]+ "<br/>" + "Level: "+textToShow[1]+ "<br/>" + "Xp:"+textToShow[2] + "</html>"));
         PopupFactory pf = PopupFactory.getSharedInstance();
         popup = pf.getPopup(label, p, mouseCoordinates.x, mouseCoordinates.y);
         popup.show();
-
     }
 
     private void hidePopup(){
@@ -230,13 +230,11 @@ public class StatPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
         
     }
 
@@ -250,6 +248,7 @@ public class StatPanel implements MouseInputListener {
         JLabel hoveredlabel =(JLabel)e.getSource();
         String hoveredskill = hoveredlabel.getName();
         showPopup(hoveredlabel, hoveredskill);
+    
         //int localX = e.getX();
         //int localY = e.getY(); 
         //System.out.println("entered " + hoveredskill);
@@ -263,6 +262,7 @@ public class StatPanel implements MouseInputListener {
         //String hoveredskill = hoveredlabel.getName(); 
         //System.out.println("exited " + hoveredskill);
         hidePopup();
+
         
         
     }
